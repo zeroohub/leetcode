@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import sys
 
-class Solution(object):
-
+class MySolution(object):
+    """
+    fail to find the solution.
+    """
     def __init__(self):
         self.small_idx = 0
         self.big_idx = 0
@@ -30,4 +32,21 @@ class Solution(object):
             return 0
         return self.current_disorder_idx - self.first_disorder_idx + 1
 
-print(Solution().findUnsortedSubarray([1,2,4,5,3]))
+
+class Solution2(object):
+    def findUnsortedSubarray(self, nums):
+        stack = []
+        lb = len(nums)
+        rb = 0
+        for i, n in enumerate(nums):
+            while len(stack) != 0 and n < nums[stack[-1]]:
+                lb = min(stack.pop(), lb)
+            stack.append(i)
+
+        stack = []
+        for i, n in reversed(list(enumerate(nums))):
+            while len(stack) != 0 and n > nums[stack[-1]]:
+                rb = max(stack.pop(), rb)
+            stack.append(i)
+        return rb - lb + 1 if rb - lb > 0 else 0
+
