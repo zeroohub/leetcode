@@ -54,32 +54,35 @@ class Solution2(object):
         :type p: str
         :rtype: List[int]
         """
+        if not s or not p or len(s) < len(p):
+            return []
         for c in p:
             self.mapStr[c] += 1
         result = []
-        diff = len(p)
+        diff = len(self.mapStr)
         start = end = 0
         for end in range(len(p)):
             c = s[end]
             if c in self.mapStr:
                 self.mapStr[c] -= 1
-                if self.mapStr[c] >= 0:
+                if self.mapStr[c] == 0:
                     diff -= 1
-
+        end += 1
         if diff == 0:
             result.append(0)
 
         while end < len(s):
             c = s[start]
             if c in self.mapStr:
-                if self.mapStr[c] >= 0:
+                if self.mapStr[c] == 0:
                     diff += 1
                 self.mapStr[c] += 1
             start += 1
+
             c = s[end]
             if c in self.mapStr:
                 self.mapStr[c] -= 1
-                if self.mapStr[c] >= 0:
+                if self.mapStr[c] == 0:
                     diff -= 1
 
             if diff == 0:
@@ -89,4 +92,4 @@ class Solution2(object):
 
         return result
 
-Solution2().findAnagrams('ssssssss', 'ss')
+Solution2().findAnagrams('cbaebabacd', 'abc')
