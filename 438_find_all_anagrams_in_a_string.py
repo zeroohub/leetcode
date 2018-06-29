@@ -92,4 +92,3 @@ class Solution2(object):
 
         return result
 
-Solution2().findAnagrams('cbaebabacd', 'abc')
