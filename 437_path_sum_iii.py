@@ -37,3 +37,22 @@ class MySolution(object):
             self.checkSum(node.right, next_totals)
 
 
+
+class Solution2(object):
+    def pathSum(self, root, target):
+        cache = defaultdict(int, {0: 1})
+        self.result = 0
+        self.dfs(root, target, 0, cache)
+        return self.result
+
+    def dfs(self, node, target, current_sum, cache):
+        if not node:
+            return
+        current_sum += node.val
+        old_sum = current_sum - target
+        if current_sum == target:
+            self.result += cache[old_sum]
+        cache[current_sum] += 1
+        self.dfs(node.left, target, current_sum, cache)
+        self.dfs(node.right, target, current_sum, cache)
+        cache[current_sum] -= 1
