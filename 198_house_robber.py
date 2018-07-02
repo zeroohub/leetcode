@@ -2,6 +2,7 @@
 class MySolution(object):
     def rob(self, nums):
         """
+        another version of classical DP
         :type nums: List[int]
         :rtype: int
         """
@@ -25,6 +26,12 @@ class MySolution(object):
 class Solution2(object):
     def rob(self, nums):
         """
+        classical DP -> three formula:
+
+        f(0) = nums[0]
+        f(1) = max(nums[0], nums[1])
+        f(n) = max(f(n) + fn(n-2), f(n-1))
+
         :type nums: List[int]
         :rtype: int
         """
@@ -39,15 +46,21 @@ class Solution2(object):
             return max(nums[0]+self.rob(nums[2:]), self.rob(nums[1:]))
 
 
-class Solution(object):
-
+class Solution3(object):
     def rob(self, nums):
+        """
+        ultimate optimized DP
+        """
+
+        # last: last best result
+        # now: current best result
         last, now = 0, 0
 
+        # new best result is the max between (last best + i) and (old now best)
         for i in nums:
-            last, now = now, max(last + i, now)
+            temp = now
+            now = max(last+i, temp)
+            last = temp
 
         return now
 
-# print(Solution2().rob([155,44,52,58,250,225,109,118,211,73,137,96,137,89,174,66,134,26,25,205,239,85,146,73,55,6,122,196,128,50,61,230,94,208,46,243,105,81,157,89,205,78,249,203,238,239,217,212,241,242,157,79,133,66,36,165]))
-print(Solution2().rob([1, 3, 9, 3, 1]))
