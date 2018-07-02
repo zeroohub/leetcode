@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 class Solution(object):
+    """
+    TODO: DP算法
+    """
     def maxSubArray(self, nums):
         if not nums:
             return None
