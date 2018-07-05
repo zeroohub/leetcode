@@ -50,8 +50,7 @@ class Solution2(object):
             return
         current_sum += node.val
         old_sum = current_sum - target
-        if current_sum == target:
-            self.result += cache[old_sum]
+        self.result += cache[old_sum]
         cache[current_sum] += 1
         self.dfs(node.left, target, current_sum, cache)
         self.dfs(node.right, target, current_sum, cache)
