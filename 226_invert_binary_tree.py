@@ -7,6 +7,17 @@ class Solution(object):
         :type root: TreeNode
         :rtype: TreeNode
         """
+        self.traversing(root)
+        return root
 
     def traversing(self, node):
-        pass
+        if not node:
+            return
+        if node.left == node.right is None:
+            return
+
+        temp = node.left
+        node.left = node.right
+        node.right = temp
+        self.traversing(node.left)
+        self.traversing(node.right)
