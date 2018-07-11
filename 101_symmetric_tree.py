@@ -10,7 +10,6 @@ class TreeNode(object):
 
 class MySolution(object):
     """
-    TODO:
     广度优先, 测每层是否对称
     """
 
