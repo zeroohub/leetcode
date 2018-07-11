@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-class Solution(object):
+class MySolution(object):
     def generateParenthesis(self, n):
         """
-        very slow solution took O( )
-        TODO
+        very slow solution took O(2(n-1)n!) time complexity
         :type n: int
         :rtype: List[str]
         """
@@ -25,4 +24,32 @@ class Solution(object):
                     queue.append(new_elem)
 
 
-print(Solution().generateParenthesis(3))
+class Solution2(object):
+    def generateParenthesis(self, n):
+        """
+        use a tree to generate all possible combination, takes minimum time.
+        :param n:
+        :return:
+        """
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+
+        ans = []
+
+        def backtrack(S='', left=0, right=0):
+
+            if len(S) == 2 * n:
+                ans.append(S)
+                return
+
+            if left < n:
+                backtrack(S + '(', left + 1, right)
+
+            if right < left:
+                backtrack(S + ')', left, right + 1)
+
+        backtrack()
+
+        return ans
