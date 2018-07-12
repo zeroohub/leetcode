@@ -5,37 +5,27 @@ class Solution(object):
     """
     same DP solution, just add width first traversing
     ERROR: misunderstand question, result error
+    f(1) = root.val
+    f(2) = max(root.val, f(root.left) + f(root.right))
+    f(3) = max(root.val+f())
     """
     def rob(self, root):
         """
         :type root: TreeNode
         :rtype: int
         """
-        if not root:
-            return 0
-
-        layer_queue = [[root]]
-        prev = curr = 0
-
-        while layer_queue:
-            node_queue = layer_queue.pop()
-            next_node_queue = []
-            node_sum = 0
-            while node_queue:
-                node = node_queue.pop()
-                node_sum += node.val
-                if node.left:
-                    next_node_queue.append(node.left)
-                if node.right:
-                    next_node_queue.append(node.right)
-
-            temp = curr
-            curr = max(prev + node_sum, curr)
-            prev = temp
-
-            if next_node_queue:
-                layer_queue.append(next_node_queue)
-
+        pre, curr = self.traversing(root)
         return curr
 
-Solution().rob(stringToTreeNode('[2,1,3,null,4]'))
+    def traversing(self, root):
+        if not root:
+            return 0, 0
+
+        right_pre, right_curr = self.traversing(root.right)
+        left_pre, left_curr = self.traversing(root.left)
+
+        curr = root.val + right_pre + left_pre
+        pre = right_curr + left_curr
+        return pre, max(curr, pre)
+
+print(Solution().rob(stringToTreeNode('[3,2,3,null,3,null,1]')))
