@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-class Solution(object):
+class MySolution(object):
+    """
+    the reversing of backtracking, not optimized
+    """
     def combinationSum(self, candidates, target):
         """
         :type candidates: List[int]
@@ -19,7 +22,31 @@ class Solution(object):
                     break
         return result
 
+class MySolution2(object):
+    """
+    backtracking, faster
+    """
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        self.result = []
+        candidates.sort()
+        self.backtrack(candidates, target, [], 0)
+        return self.result
 
-print(Solution().combinationSum([2, 3, 6, 7], 7))
 
+    def backtrack(self, candidate, target, seq, last):
+        if target == 0:
+            self.result.append(seq)
 
+        if target < candidate[0]:
+            return
+
+        for c in candidate:
+            if c < last:
+                continue
+
+            self.backtrack(candidate, target - c, seq + [c], c)
