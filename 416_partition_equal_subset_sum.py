@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from collections import defaultdict
+
+
 class MySolution(object):
     def canPartition(self, nums):
         """
@@ -87,4 +90,33 @@ class Solution2(object):
             return False
         return backtrack(0, total // 2)
 
-print(Solution().canPartition([1, 2, 3, 4, 5, 6, 7]))
+
+class Solution3(object):
+    """
+    DP solution, iterative
+    list sort reverse or not, doesn't affect result, just speed.
+    """
+    def canPartition(self, nums):
+        total = sum(nums)
+        if total % 2 == 1:
+            return False
+        target = total // 2
+        dp = defaultdict(int)
+        for n in nums:
+            for k in list(dp.keys()):
+                val = k+n
+                if val == target:
+                    return True
+                if val < target:
+                    dp[k+n] += 1
+
+            if n == target:
+                return True
+            elif n < target:
+                dp[n] += 1
+            else:
+                return False
+        return False
+
+
+print(Solution3().canPartition([1, 2, 3, 4, 5, 6, 7]))
