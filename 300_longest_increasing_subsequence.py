@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
+from collections import defaultdict
+
+
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
-        TODO: don't understand question
+        brute force, O(n^2)
+        TODO
         :type nums: List[int]
         :rtype: int
         """
-        cache = []  # (length, last)
-        max_length = 0
-        for n in nums:
-            i = 0
-            while i < len(cache):
-                l, last = cache[i]
-                if n >= last:
-                    cache[i] = (l+1, n)
-                else:
-                    max_length = max(max_length, l)
-                    del cache[i]
-                i += 1
-            cache.append((1, n))
+        if not nums:
+            return 0
 
-        return max_length
+        dp = []
+        big = 1
+        for i, n in enumerate(nums):
+            maxval = 1
+            for j in range(i):
+                if n > nums[j]:
+                    maxval = max(maxval, dp[j]+1)
+            big = max(maxval, big)
+            dp.append(maxval)
 
+        return big
+
+
+
+print(Solution().lengthOfLIS([1,3,6,7,9,4,10,5,6]))
