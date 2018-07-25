@@ -56,8 +56,3 @@ class Trie(object):
         """
         return self._find(prefix, False)
 
-obj = Trie()
-obj.insert('apple')
-obj.search('apple')
-obj.search('app')
-print(obj.startsWith('app'))
