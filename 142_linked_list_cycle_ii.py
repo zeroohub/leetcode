@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from data_structure import *
 class Solution(object):
     def detectCycle(self, head):
         """
@@ -8,6 +9,12 @@ class Solution(object):
         """
 
         slow = fast = head
-        while slow != fast:
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+            if slow == fast:
+                return slow
+
+        return None
+
+print(Solution().detectCycle(stringToListNode('[3,2,0,-4]')))
