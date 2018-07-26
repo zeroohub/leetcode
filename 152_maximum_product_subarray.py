@@ -7,9 +7,18 @@ class Solution(object):
         :rtype: int
         TODO DP
         """
+        if not nums:
+            return
+        if len(nums) == 1:
+            return nums[0]
 
-        nag = -1
-        pos = 1
-        result = 1
-        for n in nums:
-            pass
+        positive = negative = maxi = nums[0]
+        for idx, num in enumerate(nums[1:]):
+            np = num * positive
+            nn = num * negative
+            positive = max(np, nn, num)
+            negative = min(np, nn, num)
+            maxi = max(maxi, positive)
+
+        return maxi
+
