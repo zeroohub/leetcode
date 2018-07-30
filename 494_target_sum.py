@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
 
-
+# HARD
 class Solution(object):
     def findTargetSumWays(self, nums, S):
         """
-        TODO: optimize
         :type nums: List[int]
         :type S: int
         :rtype: int

@@ -5,7 +5,6 @@ class Solution(object):
         """
         :type nums: List[int]
         :rtype: int
-        TODO DP
         """
         if not nums:
             return

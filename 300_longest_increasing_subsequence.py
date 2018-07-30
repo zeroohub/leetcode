@@ -5,8 +5,9 @@ from collections import defaultdict
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
+        TODO check solution
+        https://leetcode.com/problems/longest-increasing-subsequence/solution/
         brute force, O(n^2)
-        TODO
         :type nums: List[int]
         :rtype: int
         """

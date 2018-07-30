@@ -26,7 +26,6 @@ class Solution(object):
 class Solution2(object):
     def hammingDistance(self, x, y):
         """
-        TODO
         :type x: int
         :type y: int
         :rtype: int

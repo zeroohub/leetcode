@@ -1,35 +1,44 @@
 # -*- coding: utf-8 -*-
+from collections import defaultdict
+
+
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
-        TODO: kind of DFS or BFS
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
+        DFS solution
+        :param numCourses:
+        :param prerequisites:
+        :return:
         """
-        self.num = numCourses
-        course2req = dict(prerequisites)
-        taken = set()
-        try:
-            for c, r in prerequisites:
-                self.take_course(c, course2req, taken)
-        except:
-            return False
-        return True
+        self.starts = defaultdict(list)
+        self.added = set()
+        self.temp = set()
+        for c, d in prerequisites:
+            self.starts[d].append(c)
 
-    def take_course(self, course, c2r, taken):
-        if course not in taken:
-            self.num -= 1
-            if self.num < 0:
-                raise Exception
-        if course not in c2r:
-            taken.add(course)
-            return 1
-        else:
-            r = c2r[course]
-            result = 1 + self.take_course(r, c2r, taken)
-            taken.add(course)
-            c2r.pop(course)
-            return result
+        for fnode, tnode in self.starts.items():
+            try:
+                self.dfs(fnode, tnode)
+            except:
+                return False
 
-print(Solution().canFinish(3, [[1,0],[2, 0]]))
+        return len(self.added) <= numCourses
+
+    def dfs(self, fnode, tnode):
+        if fnode in self.added:
+            return
+        if fnode in self.temp:
+            raise Exception
+
+        self.temp.add(fnode)
+        for tn in tnode:
+            if tn in self.starts:
+                self.dfs(tn, self.starts[tn])
+            else:
+                self.added.add(tn)
+        self.temp.remove(fnode)
+        self.added.add(fnode)
+
+
+
+print(Solution().canFinish(2, [[1,2],[2, 0]]))
