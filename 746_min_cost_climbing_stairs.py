@@ -20,17 +20,17 @@ class Solution:
 class Solution:
     def minCostClimbingStairs(self, cost: 'List[int]') -> 'int':
         self.cache = {}
+        cost.append(0)
         return self.minCost(cost, len(cost))
 
+
     def minCost(self, cost, n):
-        n_1 = 0
-        n_2 = 0
-        for i in range(n):
-            if i < 2:
-                return cost[n]
-            
+        n_1 = cost[1]
+        n_2 = cost[0]
+        for i in range(2, n):
+            n_1, n_2 = min(n_1, n_2) + cost[i], n_1
 
-
+        return n_1
 
 def testSolution():
     for cost, result in [

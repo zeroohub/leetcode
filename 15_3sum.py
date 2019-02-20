@@ -21,4 +21,32 @@ class Solution(object):
                 scaned.add(n)
         return result
 
+
+class Solution(object):
+    def threeSum(self, nums):
+        nums.sort()
+        result = []
+        for i in range(len(nums)-2):
+            if nums[i] > 0:
+                break
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            lptr = i+1
+            rptr = len(nums)-1
+            while lptr < rptr:
+                total = nums[i] + nums[lptr] + nums[rptr]
+                if total < 0:
+                    lptr += 1
+                elif total > 0:
+                    rptr -= 1
+                else:
+                    result.append([nums[i], nums[lptr], nums[rptr]])
+                    while lptr < rptr and nums[lptr] == nums[lptr+1]:
+                        lptr += 1
+                    while lptr < rptr and nums[rptr] == nums[rptr-1]:
+                        rptr -= 1
+                    lptr += 1
+                    rptr -= 1
+        return result
+
 print(Solution().threeSum([-1, 0, 1, 2, -1, -4]))
